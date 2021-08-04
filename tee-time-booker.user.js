@@ -20,11 +20,11 @@ async function waitFor(fn, msg, max_seconds) {
     while (!fn()) {
         await timeout(10);
         if (Date.now() > max_t) {
-            alert("Never finished waiting!" + msg)
+            alert("Never finished waiting!" + (type(msg) === 'string' ? msg : msg()))
         }
     }
     if (!fn()) {
-        alert("Something went wrong after waiting!" + msg)
+        alert("Something went wrong after waiting!" + (type(msg) === 'string' ? msg : msg()))
     }
 }
 
@@ -34,7 +34,7 @@ async function main() {
     await waitFor(() => $('.booking-classes button:contains(Resident Adult):not(:contains(Advance))').length === 1, "player type options")
 
     $('.booking-classes button:contains(Resident Adult):not(:contains(Advance))')[0].click()
-    await waitFor(() => $('.players a').length === 4, " 4 players")
+    await waitFor(() => $('.players a').length === 4, () => " 4 players? " + $('.players a').length)
     $('.players a')[3].click()
 
     let months = []
