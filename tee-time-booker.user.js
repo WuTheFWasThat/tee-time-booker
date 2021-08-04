@@ -31,8 +31,7 @@ async function waitFor(fn, msg) {
 let testing = false;
 
 async function main() {
-
-  	 $('.booking-classes button:contains(Resident Adult):not(:contains(Advance))')[0].click()
+    $('.booking-classes button:contains(Resident Adult):not(:contains(Advance))')[0].click()
     await waitFor(() => $('.players a').length === 4, " 4 players")
     $('.players a')[3].click()
 
@@ -72,7 +71,7 @@ async function main() {
         return $($("h1", $('#times .time')[0])[0]).text() === "No tee times available";
     }
     function hasTimesAvailable() {
-        return $('.start', $('#times .time')[0]).length > 0;
+        return $('#times .time .start').length > 0;
     }
 
     await waitFor(() => {return hasTimesAvailable() || noTimesAvailable()}, " wait for times to load")
@@ -82,10 +81,11 @@ async function main() {
         window.location.reload()
         return;
     }
-    console.log("num start times", $('.start', $('#times .time')[0]).length)
 
     let found_time_slot = null;
     let time_slot_items = $('#times .time');
+    console.log("num start times", $('#times .time .start').length, "num time slots", time_slot_items.length)
+
     for (let i = 0; i < time_slot_items.length; i++) {
         let time_slot_item = time_slot_items[i]
         let text = $('.start', time_slot_item).text()
