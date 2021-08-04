@@ -14,12 +14,12 @@ function timeout(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function waitFor(fn, msg) {
-    let max = 500;
+async function waitFor(fn, msg, max_seconds) {
+    if (!max_seconds) { max_seconds = 5 }
+    let max_t = Date.now() + max_seconds * 1000;
     while (!fn()) {
         await timeout(10);
-        max --;
-        if (max === 0) {
+        if (Date.now() > max_t) {
             alert("Never finished waiting!" + msg)
         }
     }
@@ -66,9 +66,9 @@ async function main() {
     }
 
     $(days[days.length-1]).click()
-    console.log('wait for click')
-    await timeout(1000); // TODO make better, wait for loading?
-    console.log('waited for click')
+    // console.log('wait for click')
+    // await timeout(1000); // TODO make better, wait for loading?
+    // console.log('waited for click')
     function noTimesAvailable() {
         return $($("h1", $('#times .time')[0])[0]).text() === "No tee times available";
     }
@@ -91,6 +91,8 @@ async function main() {
     for (let i = 0; i < time_slot_items.length; i++) {
         let time_slot_item = time_slot_items[i]
         let text = $('.start', time_slot_item).text()
+	console.log("found time", text)
+
         // before 7 am
         let suffix = text.slice(text.length - 2);
         if (!testing && suffix === 'pm') {continue}
@@ -103,7 +105,6 @@ async function main() {
         if (minutes_since_midnight <= 7 * 60) {
             found_time_slot = time_slot_item;
         }
-        console.log(text)
     }
     if (found_time_slot === null) {
         alert("Hmm failed today?  only time slots available were past 7am")
