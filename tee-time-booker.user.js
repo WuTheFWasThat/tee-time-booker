@@ -67,9 +67,8 @@ async function main() {
     console.log("Found days", days.map((x) => $(x).text()).join("\n"))
 
     $(days[days.length-1]).click()
-    // console.log('wait for click')
-    // await timeout(1000); // TODO make better, wait for loading?
-    // console.log('waited for click')
+    await waitFor(() => $('div:contains(Loading Tee times)').length > 0)
+    await waitFor(() => $('div:contains(Loading Tee times)').length == 0)
     function noTimesAvailable() {
         return $($("h1", $('#times .time')[0])[0]).text() === "No tee times available";
     }
