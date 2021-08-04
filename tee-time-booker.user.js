@@ -31,6 +31,8 @@ async function waitFor(fn, msg) {
 let testing = false;
 
 async function main() {
+    await waitFor(() => $('.booking-classes button:contains(Resident Adult):not(:contains(Advance))').length === 1, "player type options")
+
     $('.booking-classes button:contains(Resident Adult):not(:contains(Advance))')[0].click()
     await waitFor(() => $('.players a').length === 4, " 4 players")
     $('.players a')[3].click()
