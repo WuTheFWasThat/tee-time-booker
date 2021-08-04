@@ -69,7 +69,7 @@ async function main() {
     $(days[days.length-1]).click()
     await waitFor(() => $('div:contains(Loading Tee times)').length > 0)
     await waitFor(() => $('div:contains(Loading Tee times)').length == 0)
-    await timeout(100)
+    await timeout(200)
     function noTimesAvailable() {
         return $($("h1", $('#times .time')[0])[0]).text() === "No tee times available";
     }
