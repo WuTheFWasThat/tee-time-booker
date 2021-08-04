@@ -15,7 +15,7 @@ function timeout(ms) {
 }
 
 async function waitFor(fn, msg) {
-    let max = 100;
+    let max = 500;
     while (!fn()) {
         await timeout(10);
         max --;
@@ -104,8 +104,7 @@ async function main() {
         console.log(text)
     }
     if (found_time_slot === null) {
-        alert("Hmm failed today?")
-        return;
+        alert("Hmm failed today?  only time slots available were past 7am")
         window.location.reload()
     }
     found_time_slot.click()
