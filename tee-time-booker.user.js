@@ -64,6 +64,7 @@ async function main() {
     if (!days.length) {
         alert("No days available?")
     }
+    console.log("Found days", days.map((x) => $(x).text()).join("\n"))
 
     $(days[days.length-1]).click()
     // console.log('wait for click')
