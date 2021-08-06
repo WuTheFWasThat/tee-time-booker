@@ -9,6 +9,8 @@
 // @require https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js 
 // ==/UserScript==
 
+// TIMES TO BOOK
+const BOOK_TIMES = [[4, 8], [13, 15]]; // 4-8 AM, 1-3 PM
 
 function timeout(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -94,8 +96,7 @@ async function main() {
         if (testing) {
             intervals = [0, 24];
         } else {
-            // 4-8 AM, 1-3 PM
-            intervals = [[4, 8], [13, 15]];
+            intervals = BOOK_TIMES;
         }
         
         for (let interval_i = 0; interval_i < intervals.length; interval_i++) {
