@@ -90,11 +90,12 @@ async function main() {
 
         let time_slot_items = $('#times .time');
         console.log("num start times", $('#times .time .start').length, "num time slots", time_slot_items.length)
+	let intervals;
         if (testing) {
-            let intervals = [0, 24];
+            intervals = [0, 24];
         } else {
             // 4-8 AM, 1-3 PM
-            let intervals = [[4, 8], [13, 15]];
+            intervals = [[4, 8], [13, 15]];
         }
         
         for (let interval_i = 0; interval_i < intervals.length; interval_i++) {
