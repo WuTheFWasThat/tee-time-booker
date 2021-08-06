@@ -112,6 +112,7 @@ async function main() {
                 let parts = text.split(':')
                 let hours_since_midnight = parseInt(parts[0]) + (parseInt(parts[1]) / 60);
                 if (suffix === 'pm') { hours_since_midnight = hours_since_midnight + 12; }
+		console.log("Checking", interval[0], "<=", hours_since_midnight, "<=", interval[1], "?")
                 if (hours_since_midnight >= interval[0] && hours_since_midnight <= interval[1]) {
                     console.log("Found!", time_slot_item);
                     found_time_slot = time_slot_item;
