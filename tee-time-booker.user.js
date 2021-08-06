@@ -83,11 +83,9 @@ async function main() {
         }
 
         await waitFor(() => {return hasTimesAvailable() || noTimesAvailable()}, " wait for times to load")
-            console.log("times avilable?", hasTimesAvailable(), "no times available?", noTimesAvailable())
+        console.log("times avilable?", hasTimesAvailable(), "no times available?", noTimesAvailable())
         if (noTimesAvailable()) {
-            console.log('retry')
-            window.location.reload()
-            return;
+            continue;
         }
 
         let time_slot_items = $('#times .time');
