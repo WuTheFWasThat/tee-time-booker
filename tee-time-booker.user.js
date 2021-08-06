@@ -41,8 +41,8 @@ async function main() {
 
     let found_time_slot = null;
 
-    while (true) {
-	    let months = []
+    while (found_time_slot === null) {
+        let months = []
         let monthdivs = $('.datepicker-months .month');
         for (let i = 0; i < monthdivs.length; i++) {
             let monthdiv = monthdivs[i];
@@ -90,7 +90,7 @@ async function main() {
 
         let time_slot_items = $('#times .time');
         console.log("num start times", $('#times .time .start').length, "num time slots", time_slot_items.length)
-	let intervals;
+        let intervals;
         if (testing) {
             intervals = [0, 24];
         } else {
@@ -126,7 +126,7 @@ async function main() {
         }
         
         if (found_time_slot === null) {
-            console.log("failed for now?  only time slots available were past 7am")
+            console.log("failed for now?  only time slots available were outside of intervals", intervals)
         }
     }
     
