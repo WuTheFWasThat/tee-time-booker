@@ -103,7 +103,7 @@ async function main() {
             for (let i = 0; i < time_slot_items.length; i++) {
                 let time_slot_item = time_slot_items[i]
                 let text = $('.start', time_slot_item).text()
-                console.log("found time", text)
+                console.log("candidate time", text)
 
                 let suffix = text.slice(text.length - 2);
                 if (suffix !== 'pm' && suffix !== 'am') {
