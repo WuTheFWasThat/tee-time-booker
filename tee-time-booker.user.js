@@ -21,10 +21,12 @@ async function waitFor(fn, msg, max_seconds) {
         await timeout(10);
         if (Date.now() > max_t) {
             alert("Never finished waiting!" + (typeof msg === 'string' ? msg : msg()))
+	    throw Error();
         }
     }
     if (!fn()) {
         alert("Something went wrong after waiting!" + (typeof msg === 'string' ? msg : msg()))
+	throw Error();
     }
 }
 
