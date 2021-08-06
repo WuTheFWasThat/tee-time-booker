@@ -90,25 +90,39 @@ async function main() {
 
         let time_slot_items = $('#times .time');
         console.log("num start times", $('#times .time .start').length, "num time slots", time_slot_items.length)
+        if (testing) {
+            let intervals = [0, 24];
+        } else {
+            // 4-8 AM, 1-3 PM
+            let intervals = [[4, 8], [13, 15]];
+        }
+        
+        for (let interval_i = 0; interval_i < intervals.length; interval_i++) {
+            let interval = intervals[interval_i]
+            for (let i = 0; i < time_slot_items.length; i++) {
+                let time_slot_item = time_slot_items[i]
+                let text = $('.start', time_slot_item).text()
+                console.log("found time", text)
 
-        for (let i = 0; i < time_slot_items.length; i++) {
-            let time_slot_item = time_slot_items[i]
-            let text = $('.start', time_slot_item).text()
-            console.log("found time", text)
-
-            // before 7 am
-            let suffix = text.slice(text.length - 2);
-            if (!testing && suffix === 'pm') {continue}
-            if (suffix !== 'pm' && suffix !== 'am') {
-                alert('error ask jeff, neither am or pm: ' + text)
+                let suffix = text.slice(text.length - 2);
+                if (suffix !== 'pm' && suffix !== 'am') {
+                    alert('error ask jeff, neither am or pm: ' + text)
+                }
+                text = text.slice(0, text.length - 2);
+                let parts = text.split(':')
+                let hours_since_midnight = parseInt(parts[0]) + (parseInt(parts[1]) / 60);
+                if (suffix === 'pm') { hours_since_midnight = hours_since_midnight + 12; }
+                if (hours_since_midnight >= interval[0] && hours_since_midnight <= interval[1]) {
+                    console.log("Found!", time_slot_item);
+                    found_time_slot = time_slot_item;
+                    break;
+                }
             }
-            text = text.slice(0, text.length - 2);
-            let parts = text.split(':')
-            let minutes_since_midnight = parseInt(parts[0]) * 60 + parseInt(parts[1]);
-            if (minutes_since_midnight <= 7 * 60) {
-                found_time_slot = time_slot_item;
+            if (found_time_slot !== null) {
+                break;
             }
         }
+        
         if (found_time_slot === null) {
             console.log("failed for now?  only time slots available were past 7am")
         }
