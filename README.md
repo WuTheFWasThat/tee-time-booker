@@ -1,6 +1,8 @@
 # tee-time-booker
 for my parents to book golf tee times
 
+TODO: check https://github.com/ehickox/teetime_booker
+
 ## HOW TO INSTALL ##
 
 ### GREASEMONKEY ###
